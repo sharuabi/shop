@@ -1,0 +1,311 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>MC's lunchbox, Chennai - School lunch, Ideas for kids lunch box, healthy food for kids!</title>
+<link rel="stylesheet" href="css/lunchbox_style.css" type="text/css" />
+<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js">
+</script>
+
+<script src="js/common.js">  </script>
+<script src="js/RegistrationPageValidation.js">  </script>
+<script type="text/javascript">
+function cleartextbox()
+{
+document.getElementById('txtEmailId').value="";
+document.getElementById('txtEmailId').focus();
+}
+
+
+function validateemailid()
+{
+alert("inside validate email id");
+$.ajax({type:'GET',
+
+    url:'https://script.google.com/macros/s/AKfycbzwAGMVzl77n72Hu32M-acoML38UyIoQcwDh1-5dc-hXTsto0Q/exec?email='+document.getElementById('txtEmailId').value.trim(),
+
+    beforeSend: function(x) {
+      alert("beforesend");},
+       
+
+    success:function(contact) {
+         alert("LunchboxID: "+contact.lunchboxID);
+         document.getElementById('txtFirstName').value=contact.firstName;
+         document.getElementById('txtLastName').value=contact.lastName;
+         document.getElementById('txtDeliveryAddress').value=contact.Address[0].location;        
+         document.getElementById('txtPincode').value=contact.Address[0].pincode;
+   		 document.getElementById('txtLandmark').value=contact.Address[0].landmark;
+         document.getElementById('txtMobileNumber').value=contact.Address[0].mobileNbr;
+         document.getElementById('txtChildFirstName').value=contact.child[0].firstName;
+         document.getElementById('txtChildLastName').value=contact.child[0].lastName;
+		 document.getElementById('txtSchoolAddress').value=contact.child[0].schoolAdd;
+        },
+
+        dataType: "json",
+
+    error: function(e){
+ 	alert(e.responseText);}
+
+ }
+);
+
+}
+/*function validateemailid()
+{
+var contact=["20131018170004044","Beena","Prithiveeraj","beena_prithiveeraj@hotmail.com"];
+
+/*,{"lunchboxID":"20131018170004044","firstName":"","lastName":"","emailId":"beena_prithiveeraj@hotmail.com","Address":[{"location":"32GB,Dakshin Apartments,4th Seaward Road,Thiruvanmiyur,Chennai","pincode":"600041","landmark":" near actor Ajith's residence","mobileNbr":"9444469316","altModileNbr":"9444469316"}],"child":[{"lunchboxID":"20131018170004460","firstName":"Ahed","lastName":"","age":"0","height":"0","weight":"0","allergies":"none","school_nm":"We CAN","schoolAdd":"No.5,Blue Beach Road,Neelankarai,Chennai-41"}]}
+
+	alert("Hi, I am inside validateemailid Function");
+	
+	document.getElementById('txtFirstName').value=contact[1];
+}*/
+</script>
+
+</head>
+
+<body>
+<iframe name="hidden_iframe" id="hidden_iframe" style="display:none;" onload="if(submitted){window.location='ThankYouForSubscription.html';}"></iframe>
+
+<form action=""
+			  method="POST" id="regform" target="hidden_iframe" onsubmit="submitted=true;" style="margin-top:30px;">
+
+<div id="main_div">
+<div class="inner_div">
+
+<div class="registration_form">
+		
+<table border="0" align="center" width="100%" width="200">
+<tr>
+	<td width="13%">
+	</td>
+	<td width="10%"> 
+		<span>Email Id :<font color="red">*</font></span>		
+	</td>
+	<td width="15%" align="center">
+		<input type="text"  class="registration_textbox" id="txtEmailId" />		
+	</td>
+
+	<td width="15%">
+		<input type="button" id="submit" onclick="validateemailid()" class="registration_search_button" value="" 
+		style="cursor:pointer;" />
+		<input type="button" id="submit" onclick="cleartextbox()"  class="registration_clear_button" value="" 
+		style="cursor:pointer;" />				
+	</td>
+	<td width="10%">
+					
+	</td>
+</tr>			
+</table>
+
+<table border="0" align="center" >
+	<tr class="white">
+	<td colspan="4">
+		<span>Parent Information</span>
+	</td>
+</tr>
+<tr>
+	<td width="20%"> 
+		<span class="errorbox-good" id="for_txtFirstName">
+			<span>First Name :<font color="red">*</font></span>		
+		</span>
+	</td>
+	<td width="30%">
+		<input type="text"  class="registration_textbox" id="txtFirstName" />		
+	</td>
+
+	<td width="20%"> 
+		<span class="errorbox-good" id="for_txtLastName">
+		<span>Last Name :<font color="red">*</font></span>		
+	</span>
+	</td>
+	<td width="30%">
+		<input type="text"  class="registration_textbox" id="txtLastName" />		
+	</td>
+</tr>	
+
+<tr>
+	<td>
+		<span class="errorbox-good" id="for_txtDeliveryAddress">
+		<span>Delivery Address (Residential Address):<font color="red">*</font></span>		
+	</span>
+	</td>
+	<td colspan="3">
+		<textarea class="registration_address" id="txtDeliveryAddress"></textarea>
+	</td>
+</tr>			
+<tr>
+	<td>
+		<span class="errorbox-good" id="for_txtPincode">
+		<span>Pincode :<font color="red">*</font></span>
+		</span>		
+	</td>
+	<td>
+		<input type="text"  class="registration_textbox" id="txtPincode" />		
+	</td>
+	<td>
+		<span class="errorbox-good" id="for_txtLandmark">
+		<span>Landmark :</span>		
+	</span>
+	</td>
+	<td>
+		<input type="text"  class="registration_textbox" id="txtLandmark"/>		
+	</td>
+</tr>	
+<tr>
+	<td>
+		<span class="errorbox-good" id="for_txtMobileNumber">
+		<span>Mobile Number :<font color="red">*</font></span>
+	</span>
+	</td>
+	<td>
+		<input type="text"  class="registration_textbox" id="txtMobileNumber"/>		
+	</td>
+</tr>			
+
+</table>
+<table border="0" align="center" width="100%" width="200">	
+<tr class="white">
+	<td colspan="6">
+		<span>Child Information</span>
+	</td>
+</tr>		
+<tr>	
+	<td width="20%">
+		<span class="errorbox-good" id="for_txtChildFirstName">
+		<span>First Name of Child :<font color="red">*</font></span>
+	</span>
+	</td>
+	<td width="30%" colspan="2">
+		<input type="text"  class="registration_textbox" id="txtChildFirstName"/>		
+	</td>
+	
+	<td width="20%" >
+		<span class="errorbox-good" id="for_txtChildLastName">
+		<span>Last Name of Child :<font color="red">*</font></span>
+	</span>
+	</td>
+	<td width="30%" colspan="2">
+		<input type="text"  class="registration_textbox" id="txtChildLastName" />		
+	</td>
+</tr>	
+<table border="0" align="center" width="100%" width="190">	
+
+<tr>
+	<td width="12%">
+		<span class="errorbox-good" id="for_dAge">
+		<span>Age :<font color="red">*</font></span>
+	</span>
+	</td>
+	<td width="12%">
+		<select class="registration_dropdown" id="dAge">
+			<option value="" class=""></option>
+			<option value="5-8">5 -8</option>
+			<option value="9-13">9-13</option>
+			<option value="14-19">14-19</option>
+		</select>
+	</td>
+	<td width="12%">
+		<span class="errorbox-good" id="for_dGender">
+		<span>Gender :<font color="red">*</font></span>
+	</span>
+	</td>
+	<td width="12%">
+		<select class="registration_dropdown" id="dGender">			
+			<option value="" class=""></option>
+			<option value="female">Female</option>
+			<option value="male">Male</option>			
+		</select>
+	</td>
+	<td width="20%">
+		<span class="errorbox-good" id="for_dActivityLevel">
+		<span>Activity Level :<font color="red">*</font></span>
+	</span>
+	</td>
+	<td>
+		<select class="registration_dropdown" id="dActivityLevel">
+			<option value="" class=""></option>
+			<option value="Active">Active</option>
+			<option value="Moderate">Moderate</option>
+			<option value="Average">Average</option>
+		</select>
+	</td>
+</tr>
+</table>
+<table border="0" align="center" width="100%" width="190">	
+<tr>
+	<td width="12%">
+		<span class="errorbox-good" id="for_dGrade">
+		<span>Grade :<font color="red">*</font></span>
+	</span>
+	</td>
+	<td width="12%">
+		<input type="text"  class="registration_smalltextbox" id="dGrade" />		
+	</td>
+	<td width="12%">
+		<span class="errorbox-good" id="for_dSection">
+		<span>Section :<font color="red">*</font></span>
+	</span>
+	</td>
+	<td width="12%">		
+		<input type="text"  class="registration_smalltextbox" id="txtSection"/>			
+	</td>
+	<td width="20%">
+		<span class="errorbox-good" id="for_txtSchoolName">
+		<span>School Name :<font color="red">*</font></span>
+	</span>
+	</td>
+	<td>
+		<input type="text"  class="registration_textbox" id="txtSchoolName" />		
+	</td>
+</tr>
+</table>
+<table border="0" align="center" width="100%" width="190">	
+<tr>	
+	<td>
+		<span class="errorbox-good" id="for_txtSchoolAddress">
+		<span>School Address :<font color="red">*</font></span>
+	</span>
+	</td>
+	<td>
+		<textarea class="registration_address" id="txtSchoolAddress"></textarea>
+	</td>
+	<td colspan="2">
+	</td>
+</tr>
+<table>
+</table>
+
+<table border="0" align="center" width="100%" width="200">	
+<tr>
+	<td >
+		<div id="errorMsg" class="errorheader" style="visibility:hidden;margin-left:15px;" ><b>Oops!Looks like you have left a required field blank.</b></div>
+		<div id="errorMsg1" class="errorheader" style="visibility:hidden;margin-left:15px;" ><b></b></div>
+	</td>
+</tr>
+</table>
+<table border="0" align="center" width="100%" width="200">			
+<tr>
+	<td></td>
+	<td  style="float:right">
+		<input type="image" id="btnAddChild" src="images/addchild_button.jpg" 
+			onmouseover="this.src='images/addchild_button_onhover.jpg';"
+			onmouseout="this.src='images/addchild_button.jpg';" />	
+		</td>
+	<td colspan="2">
+		<input type="submit" id="btnRegister" class="registration_register_button" value="" 
+		style="border:none; width:74px; height:27px; float:left; background:url(images/register_button.jpg) top center no-repeat; margin-bottom:20px; cursor:pointer;" onmouseover="this.src='images/register_button_onhover.jpg';"
+		 />		
+		
+	</td>
+	<td></td>
+</tr>			
+
+</table>
+</div>
+</div>
+</div>
+</form>
+</body>
+</html>
